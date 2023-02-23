@@ -6,7 +6,7 @@ namespace OmniLifeValidationTool.Database
   {
   public class PremiumRepository : IPremiumRepository
     {
-    public void GetPremiums(string xsSupplierCode)
+    public DataTable GetPremiums(string xsSupplierCode)
       {
       string sDatabaseName = $"Premiums - {xsSupplierCode}";
       string sTableName = $"Premium_{xsSupplierCode}";
@@ -22,11 +22,12 @@ namespace OmniLifeValidationTool.Database
             {
             DataTable oData = new DataTable();
             oData.Load(oReader);
+            return oData;
             }
           }
         catch (Exception ex)
           {
-          Debug.WriteLine(ex.Message);
+          throw new Exception(ex.Message);
           }
         }
 

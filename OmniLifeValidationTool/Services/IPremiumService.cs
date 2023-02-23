@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OmniLifeValidationTool.Database
+namespace OmniLifeValidationTool.Services
   {
   public interface IPremiumService
     {
-    void GetPremiums(string xsSupplierCode);
+    DataTable GetPremiums(string xsSupplierCode);
     }
   }

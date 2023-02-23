@@ -1,4 +1,5 @@
-using OmniLifeValidationTool.Database;
+using OmniLifeValidationTool.Services;
+using System.Data;
 
 namespace OmniLifeValidationTool
   {
@@ -14,7 +15,15 @@ namespace OmniLifeValidationTool
 
     private void loadSupplierBtn_Click(object sender, EventArgs e)
       {
-      _premiumService.GetPremiums("ACC");
+      OpenFileDialog oDialog = new();
+      DialogResult oResult = oDialog.ShowDialog();
+      if (oResult == DialogResult.OK)
+        {
+        string sFileName = oDialog.FileName;
+        string sSupplierCode = sFileName.Split(new char[] { '-', '.' })[1].Trim();
+        DataTable oData = _premiumService.GetPremiums(sSupplierCode);
+        }
+      
       }
     }
   }

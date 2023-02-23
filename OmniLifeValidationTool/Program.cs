@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OmniLifeValidationTool.Database;
+using OmniLifeValidationTool.Services;
 
 namespace OmniLifeValidationTool
   {
@@ -20,16 +21,22 @@ namespace OmniLifeValidationTool
 
       Application.Run(ServiceProvider.GetRequiredService<Form1>());
       }
-    
+
 
     static IHostBuilder CreateHostBuilder()
       {
       return Host.CreateDefaultBuilder()
           .ConfigureServices((context, services) =>
           {
-            services.AddTransient<IPremiumRepository, PremiumRepository>();
-            services.AddTransient<IPremiumService, PremiumService>();
+            // Forms
             services.AddTransient<Form1>();
+
+            // Repository
+            services.AddTransient<IPremiumRepository, PremiumRepository>();
+
+            // Services
+            services.AddTransient<IPremiumService, PremiumService>();
+
           });
       }
     }
