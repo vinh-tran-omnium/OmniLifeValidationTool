@@ -5,6 +5,7 @@ using OmniLifeValidationTool.Services;
 
 namespace OmniLifeValidationTool
   {
+  [System.Runtime.Versioning.SupportedOSPlatform("windows")]
   static class Program
     {
     public static IServiceProvider? ServiceProvider { get; private set; }

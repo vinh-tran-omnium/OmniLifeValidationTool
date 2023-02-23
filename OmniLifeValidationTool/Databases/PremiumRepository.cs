@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using System.Data.OleDb;
-using System.Diagnostics;
 
 namespace OmniLifeValidationTool.Database
   {
+  [System.Runtime.Versioning.SupportedOSPlatform("windows")]
   public class PremiumRepository : IPremiumRepository
     {
     public DataTable GetPremiums(string xsSupplierCode)
@@ -14,7 +14,8 @@ namespace OmniLifeValidationTool.Database
       
       using (OleDbConnection oConnection = new(sConnectionString))
         {
-        OleDbCommand oCommand = new($"select * from {sTableName}", oConnection);
+        string sQuery = $"select * from {sTableName} where FORMULA = 'BAS'";
+        OleDbCommand oCommand = new(sQuery, oConnection);
         try
           {
           oConnection.Open();
