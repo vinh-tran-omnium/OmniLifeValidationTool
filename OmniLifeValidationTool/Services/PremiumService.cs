@@ -11,6 +11,11 @@ namespace OmniLifeValidationTool.Services
       _premiumRepo = premiumRepo;
       }
 
+    public DataTable GetDuplicates(string xsSupplierCode)
+      {
+      return _premiumRepo.GetDuplicates(xsSupplierCode);
+      }
+
     public DataTable GetPremiums(string xsSupplierCode)
       {
       return _premiumRepo.GetPremiums(xsSupplierCode);

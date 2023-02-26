@@ -10,5 +10,6 @@ namespace OmniLifeValidationTool.Services
   public interface IPremiumService
     {
     DataTable GetPremiums(string xsSupplierCode);
+    DataTable GetDuplicates(string xsSupplierCode);
     }
   }
