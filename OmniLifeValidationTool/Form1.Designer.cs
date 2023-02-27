@@ -33,11 +33,12 @@
       this.tabControl2 = new System.Windows.Forms.TabControl();
       this.supplierPremiumTp = new System.Windows.Forms.TabPage();
       this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-      this.LoadedSupplierTb = new System.Windows.Forms.TextBox();
       this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+      this.LoadedSupplierTb = new System.Windows.Forms.TextBox();
+      this.showAllBtn = new System.Windows.Forms.Button();
       this.showDuplicatesBtn = new System.Windows.Forms.Button();
+      this.showMismatchBtn = new System.Windows.Forms.Button();
       this.duplicateRowDgv = new System.Windows.Forms.DataGridView();
-      this.tabPage4 = new System.Windows.Forms.TabPage();
       this.tabControl2.SuspendLayout();
       this.supplierPremiumTp.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -74,7 +75,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tabControl2.Controls.Add(this.supplierPremiumTp);
-      this.tabControl2.Controls.Add(this.tabPage4);
       this.tabControl2.Location = new System.Drawing.Point(12, 12);
       this.tabControl2.Name = "tabControl2";
       this.tabControl2.SelectedIndex = 0;
@@ -104,42 +104,66 @@
       // splitContainer1.Panel1
       // 
       this.splitContainer1.Panel1.Controls.Add(this.loadSupplierBtn);
-      this.splitContainer1.Panel1.Controls.Add(this.LoadedSupplierTb);
       // 
       // splitContainer1.Panel2
       // 
       this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
       this.splitContainer1.Panel2.Controls.Add(this.duplicateRowDgv);
       this.splitContainer1.Size = new System.Drawing.Size(1268, 675);
-      this.splitContainer1.SplitterDistance = 227;
+      this.splitContainer1.SplitterDistance = 125;
       this.splitContainer1.TabIndex = 4;
-      // 
-      // LoadedSupplierTb
-      // 
-      this.LoadedSupplierTb.Location = new System.Drawing.Point(119, 7);
-      this.LoadedSupplierTb.Name = "LoadedSupplierTb";
-      this.LoadedSupplierTb.Size = new System.Drawing.Size(100, 23);
-      this.LoadedSupplierTb.TabIndex = 3;
       // 
       // flowLayoutPanel1
       // 
       this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.flowLayoutPanel1.Controls.Add(this.LoadedSupplierTb);
+      this.flowLayoutPanel1.Controls.Add(this.showAllBtn);
       this.flowLayoutPanel1.Controls.Add(this.showDuplicatesBtn);
+      this.flowLayoutPanel1.Controls.Add(this.showMismatchBtn);
       this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
       this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-      this.flowLayoutPanel1.Size = new System.Drawing.Size(1029, 33);
+      this.flowLayoutPanel1.Size = new System.Drawing.Size(1131, 33);
       this.flowLayoutPanel1.TabIndex = 4;
+      // 
+      // LoadedSupplierTb
+      // 
+      this.LoadedSupplierTb.Location = new System.Drawing.Point(3, 3);
+      this.LoadedSupplierTb.Name = "LoadedSupplierTb";
+      this.LoadedSupplierTb.ReadOnly = true;
+      this.LoadedSupplierTb.Size = new System.Drawing.Size(100, 23);
+      this.LoadedSupplierTb.TabIndex = 3;
+      this.LoadedSupplierTb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      // 
+      // showAllBtn
+      // 
+      this.showAllBtn.Location = new System.Drawing.Point(109, 3);
+      this.showAllBtn.Name = "showAllBtn";
+      this.showAllBtn.Size = new System.Drawing.Size(75, 23);
+      this.showAllBtn.TabIndex = 4;
+      this.showAllBtn.Text = "Show All";
+      this.showAllBtn.UseVisualStyleBackColor = true;
+      this.showAllBtn.Click += new System.EventHandler(this.showAllBtn_Click);
       // 
       // showDuplicatesBtn
       // 
-      this.showDuplicatesBtn.Location = new System.Drawing.Point(3, 3);
+      this.showDuplicatesBtn.Location = new System.Drawing.Point(190, 3);
       this.showDuplicatesBtn.Name = "showDuplicatesBtn";
       this.showDuplicatesBtn.Size = new System.Drawing.Size(110, 23);
       this.showDuplicatesBtn.TabIndex = 2;
       this.showDuplicatesBtn.Text = "Show Duplicates";
       this.showDuplicatesBtn.UseVisualStyleBackColor = true;
       this.showDuplicatesBtn.Click += new System.EventHandler(this.showDuplicatesBtn_Click);
+      // 
+      // showMismatchBtn
+      // 
+      this.showMismatchBtn.Location = new System.Drawing.Point(306, 3);
+      this.showMismatchBtn.Name = "showMismatchBtn";
+      this.showMismatchBtn.Size = new System.Drawing.Size(120, 23);
+      this.showMismatchBtn.TabIndex = 3;
+      this.showMismatchBtn.Text = "Show Mismatch";
+      this.showMismatchBtn.UseVisualStyleBackColor = true;
+      this.showMismatchBtn.Click += new System.EventHandler(this.showMismatchBtn_Click);
       // 
       // duplicateRowDgv
       // 
@@ -150,18 +174,8 @@
       this.duplicateRowDgv.Location = new System.Drawing.Point(3, 42);
       this.duplicateRowDgv.Name = "duplicateRowDgv";
       this.duplicateRowDgv.RowTemplate.Height = 25;
-      this.duplicateRowDgv.Size = new System.Drawing.Size(1029, 628);
+      this.duplicateRowDgv.Size = new System.Drawing.Size(1131, 628);
       this.duplicateRowDgv.TabIndex = 1;
-      // 
-      // tabPage4
-      // 
-      this.tabPage4.Location = new System.Drawing.Point(4, 24);
-      this.tabPage4.Name = "tabPage4";
-      this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage4.Size = new System.Drawing.Size(1280, 687);
-      this.tabPage4.TabIndex = 1;
-      this.tabPage4.Text = "tabPage4";
-      this.tabPage4.UseVisualStyleBackColor = true;
       // 
       // Form1
       // 
@@ -176,11 +190,11 @@
       this.tabControl2.ResumeLayout(false);
       this.supplierPremiumTp.ResumeLayout(false);
       this.splitContainer1.Panel1.ResumeLayout(false);
-      this.splitContainer1.Panel1.PerformLayout();
       this.splitContainer1.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
       this.splitContainer1.ResumeLayout(false);
       this.flowLayoutPanel1.ResumeLayout(false);
+      this.flowLayoutPanel1.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.duplicateRowDgv)).EndInit();
       this.ResumeLayout(false);
 
@@ -194,11 +208,12 @@
     private Panel panel1;
     private TabControl tabControl2;
     private TabPage supplierPremiumTp;
-    private TabPage tabPage4;
     public DataGridView duplicateRowDgv;
     public Button showDuplicatesBtn;
     public TextBox LoadedSupplierTb;
     private SplitContainer splitContainer1;
     private FlowLayoutPanel flowLayoutPanel1;
+    public Button showMismatchBtn;
+    public Button showAllBtn;
     }
   }
