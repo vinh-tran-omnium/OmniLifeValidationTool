@@ -69,9 +69,9 @@ namespace OmniLifeValidationTool.Services
       return oDuplicates;
       }
 
-    public DataTable? GetPremiums(string xsSupplierCode)
+    public DataTable? GetPremiums(string xsFilePath)
       {
-      return _premiumRepo.GetPremiums(xsSupplierCode);
+      return _premiumRepo.GetPremiums(xsFilePath);
       }
 
     private string GetBASKey(DataRow xoRow)

@@ -23,12 +23,12 @@ namespace OmniLifeValidationTool
       if (oResult != DialogResult.OK) { return; }
 
       string sFileName = oDialog.FileName;
-      string sSupplierCode = sFileName.Split(new char[] { '-', '.' })[1].Trim();
-      _loadedSupplier = _premiumService.GetPremiums(sSupplierCode);
+      _loadedSupplier = _premiumService.GetPremiums(sFileName);
       if (_loadedSupplier == null)
         {
         return;
         }
+      string sSupplierCode = sFileName.Split(new char[] { '-', '.' })[1].Trim();
       LoadedSupplierTb.Text = sSupplierCode;
       duplicateRowDgv.DataSource = _loadedSupplier;
       ShowButtons();

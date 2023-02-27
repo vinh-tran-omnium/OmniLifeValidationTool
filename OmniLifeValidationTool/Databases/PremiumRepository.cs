@@ -8,17 +8,16 @@ namespace OmniLifeValidationTool.Database
   [System.Runtime.Versioning.SupportedOSPlatform("windows")]
   public class PremiumRepository : IPremiumRepository
     {
-    public DataTable? GetPremiums(string xsSupplierCode)
+    public DataTable? GetPremiums(string xsFilePath)
       {
-      string sDatabaseName = $"Premiums - {xsSupplierCode}";
-      string sTableName = $"Premium_{xsSupplierCode}";
-      string sConnectionString = @$"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Working\Omnium\Install\Premiums\{sDatabaseName}.accdb";
+      string sSupplierCode = xsFilePath.Split(new char[] { '-', '.' })[1].Trim();
+      string sTableName = $"Premium_{sSupplierCode}";
+      string sConnectionString = @$"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={xsFilePath}";
 
       using (OleDbConnection oConnection = new(sConnectionString))
         {
         string sQuery = $"select * from {sTableName} where FORMULA = 'BAS'";
         OleDbCommand oCommand = new(sQuery, oConnection);
-
         try
           {
           oConnection.Open();
@@ -36,9 +35,5 @@ namespace OmniLifeValidationTool.Database
           }
         }
       }
-
-
-
-
     }
   }

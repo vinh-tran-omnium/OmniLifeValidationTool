@@ -9,6 +9,6 @@ namespace OmniLifeValidationTool.Database
   {
   public interface IPremiumRepository
     {
-    DataTable? GetPremiums(string xsSupplierCode);
+    DataTable? GetPremiums(string xsFilePath);
     }
   }
