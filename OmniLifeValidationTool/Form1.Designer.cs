@@ -31,20 +31,26 @@
       this.loadSupplierBtn = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
       this.tabControl2 = new System.Windows.Forms.TabControl();
-      this.tabPage3 = new System.Windows.Forms.TabPage();
+      this.supplierPremiumTp = new System.Windows.Forms.TabPage();
+      this.splitContainer1 = new System.Windows.Forms.SplitContainer();
       this.LoadedSupplierTb = new System.Windows.Forms.TextBox();
+      this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
       this.showDuplicatesBtn = new System.Windows.Forms.Button();
       this.duplicateRowDgv = new System.Windows.Forms.DataGridView();
       this.tabPage4 = new System.Windows.Forms.TabPage();
-      this.deleteRowBtn = new System.Windows.Forms.Button();
       this.tabControl2.SuspendLayout();
-      this.tabPage3.SuspendLayout();
+      this.supplierPremiumTp.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+      this.splitContainer1.Panel1.SuspendLayout();
+      this.splitContainer1.Panel2.SuspendLayout();
+      this.splitContainer1.SuspendLayout();
+      this.flowLayoutPanel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.duplicateRowDgv)).BeginInit();
       this.SuspendLayout();
       // 
       // loadSupplierBtn
       // 
-      this.loadSupplierBtn.Location = new System.Drawing.Point(6, 6);
+      this.loadSupplierBtn.Location = new System.Drawing.Point(3, 6);
       this.loadSupplierBtn.Name = "loadSupplierBtn";
       this.loadSupplierBtn.Size = new System.Drawing.Size(110, 23);
       this.loadSupplierBtn.TabIndex = 0;
@@ -67,7 +73,7 @@
       this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tabControl2.Controls.Add(this.tabPage3);
+      this.tabControl2.Controls.Add(this.supplierPremiumTp);
       this.tabControl2.Controls.Add(this.tabPage4);
       this.tabControl2.Location = new System.Drawing.Point(12, 12);
       this.tabControl2.Name = "tabControl2";
@@ -75,31 +81,59 @@
       this.tabControl2.Size = new System.Drawing.Size(1288, 715);
       this.tabControl2.TabIndex = 1;
       // 
-      // tabPage3
+      // supplierPremiumTp
       // 
-      this.tabPage3.Controls.Add(this.deleteRowBtn);
-      this.tabPage3.Controls.Add(this.LoadedSupplierTb);
-      this.tabPage3.Controls.Add(this.showDuplicatesBtn);
-      this.tabPage3.Controls.Add(this.duplicateRowDgv);
-      this.tabPage3.Controls.Add(this.loadSupplierBtn);
-      this.tabPage3.Location = new System.Drawing.Point(4, 24);
-      this.tabPage3.Name = "tabPage3";
-      this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage3.Size = new System.Drawing.Size(1280, 687);
-      this.tabPage3.TabIndex = 0;
-      this.tabPage3.Text = "tabPage3";
-      this.tabPage3.UseVisualStyleBackColor = true;
+      this.supplierPremiumTp.Controls.Add(this.splitContainer1);
+      this.supplierPremiumTp.Location = new System.Drawing.Point(4, 24);
+      this.supplierPremiumTp.Name = "supplierPremiumTp";
+      this.supplierPremiumTp.Padding = new System.Windows.Forms.Padding(3);
+      this.supplierPremiumTp.Size = new System.Drawing.Size(1280, 687);
+      this.supplierPremiumTp.TabIndex = 0;
+      this.supplierPremiumTp.Text = "Supplier Premium";
+      this.supplierPremiumTp.UseVisualStyleBackColor = true;
+      // 
+      // splitContainer1
+      // 
+      this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.splitContainer1.Location = new System.Drawing.Point(6, 6);
+      this.splitContainer1.Name = "splitContainer1";
+      // 
+      // splitContainer1.Panel1
+      // 
+      this.splitContainer1.Panel1.Controls.Add(this.loadSupplierBtn);
+      this.splitContainer1.Panel1.Controls.Add(this.LoadedSupplierTb);
+      // 
+      // splitContainer1.Panel2
+      // 
+      this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
+      this.splitContainer1.Panel2.Controls.Add(this.duplicateRowDgv);
+      this.splitContainer1.Size = new System.Drawing.Size(1268, 675);
+      this.splitContainer1.SplitterDistance = 227;
+      this.splitContainer1.TabIndex = 4;
       // 
       // LoadedSupplierTb
       // 
-      this.LoadedSupplierTb.Location = new System.Drawing.Point(122, 6);
+      this.LoadedSupplierTb.Location = new System.Drawing.Point(119, 7);
       this.LoadedSupplierTb.Name = "LoadedSupplierTb";
       this.LoadedSupplierTb.Size = new System.Drawing.Size(100, 23);
       this.LoadedSupplierTb.TabIndex = 3;
       // 
+      // flowLayoutPanel1
+      // 
+      this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.flowLayoutPanel1.Controls.Add(this.showDuplicatesBtn);
+      this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+      this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+      this.flowLayoutPanel1.Size = new System.Drawing.Size(1029, 33);
+      this.flowLayoutPanel1.TabIndex = 4;
+      // 
       // showDuplicatesBtn
       // 
-      this.showDuplicatesBtn.Location = new System.Drawing.Point(236, 5);
+      this.showDuplicatesBtn.Location = new System.Drawing.Point(3, 3);
       this.showDuplicatesBtn.Name = "showDuplicatesBtn";
       this.showDuplicatesBtn.Size = new System.Drawing.Size(110, 23);
       this.showDuplicatesBtn.TabIndex = 2;
@@ -113,10 +147,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.duplicateRowDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.duplicateRowDgv.Location = new System.Drawing.Point(236, 35);
+      this.duplicateRowDgv.Location = new System.Drawing.Point(3, 42);
       this.duplicateRowDgv.Name = "duplicateRowDgv";
       this.duplicateRowDgv.RowTemplate.Height = 25;
-      this.duplicateRowDgv.Size = new System.Drawing.Size(1038, 646);
+      this.duplicateRowDgv.Size = new System.Drawing.Size(1029, 628);
       this.duplicateRowDgv.TabIndex = 1;
       // 
       // tabPage4
@@ -129,15 +163,6 @@
       this.tabPage4.Text = "tabPage4";
       this.tabPage4.UseVisualStyleBackColor = true;
       // 
-      // deleteRowBtn
-      // 
-      this.deleteRowBtn.Location = new System.Drawing.Point(352, 5);
-      this.deleteRowBtn.Name = "deleteRowBtn";
-      this.deleteRowBtn.Size = new System.Drawing.Size(75, 23);
-      this.deleteRowBtn.TabIndex = 4;
-      this.deleteRowBtn.Text = "Delete Row";
-      this.deleteRowBtn.UseVisualStyleBackColor = true;
-      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -145,11 +170,17 @@
       this.ClientSize = new System.Drawing.Size(1315, 742);
       this.Controls.Add(this.tabControl2);
       this.Controls.Add(this.panel1);
+      this.MinimumSize = new System.Drawing.Size(1330, 780);
       this.Name = "Form1";
       this.Text = "Form1";
       this.tabControl2.ResumeLayout(false);
-      this.tabPage3.ResumeLayout(false);
-      this.tabPage3.PerformLayout();
+      this.supplierPremiumTp.ResumeLayout(false);
+      this.splitContainer1.Panel1.ResumeLayout(false);
+      this.splitContainer1.Panel1.PerformLayout();
+      this.splitContainer1.Panel2.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+      this.splitContainer1.ResumeLayout(false);
+      this.flowLayoutPanel1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.duplicateRowDgv)).EndInit();
       this.ResumeLayout(false);
 
@@ -162,11 +193,12 @@
     public Button loadSupplierBtn;
     private Panel panel1;
     private TabControl tabControl2;
-    private TabPage tabPage3;
+    private TabPage supplierPremiumTp;
     private TabPage tabPage4;
     public DataGridView duplicateRowDgv;
     public Button showDuplicatesBtn;
     public TextBox LoadedSupplierTb;
-    public Button deleteRowBtn;
+    private SplitContainer splitContainer1;
+    private FlowLayoutPanel flowLayoutPanel1;
     }
   }

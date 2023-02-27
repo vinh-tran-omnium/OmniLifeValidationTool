@@ -11,39 +11,24 @@ namespace OmniLifeValidationTool.Database
     private const string SEPARATOR = "/";
     public DataTable GetDuplicates(string xsSupplierCode)
       {
-      StringBuilder oSB = new();
-      Dictionary<string, DataRow> dBASKeys = new();
-
       DataTable oAllPremiums = GetPremiums(xsSupplierCode);
       DataTable oDuplicates = oAllPremiums.Clone();
-      
+      Dictionary<string, DataRow> dBASKeys = new();
 
       for (int i = 0; i < oAllPremiums.Rows.Count; i++)
         {
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["FORMULA_CODE"].ToString()) ? oAllPremiums.Rows[i]["FORMULA_CODE"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["PREMIUM_TYPE"].ToString()) ? oAllPremiums.Rows[i]["PREMIUM_TYPE"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["GENDER"].ToString()) ? oAllPremiums.Rows[i]["GENDER"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["SMOKER"].ToString()) ? oAllPremiums.Rows[i]["SMOKER"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["MIN_AGE"].ToString()) ? oAllPremiums.Rows[i]["MIN_AGE"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["BENEFIT_PERIOD"].ToString()) ? oAllPremiums.Rows[i]["BENEFIT_PERIOD"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["WAITING_PERIOD"].ToString()) ? oAllPremiums.Rows[i]["WAITING_PERIOD"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["FREQUENCY"].ToString()) ? oAllPremiums.Rows[i]["FREQUENCY"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["BUYBACK"].ToString()) ? oAllPremiums.Rows[i]["BUYBACK"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["DOUBLE"].ToString()) ? oAllPremiums.Rows[i]["DOUBLE"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["OWNANY"].ToString()) ? oAllPremiums.Rows[i]["OWNANY"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["ICB"].ToString()) ? oAllPremiums.Rows[i]["ICB"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["ABO"].ToString()) ? oAllPremiums.Rows[i]["ABO"] : BLANK).Append(SEPARATOR);
-        oSB.Append(!string.IsNullOrWhiteSpace(oAllPremiums.Rows[i]["CLASS"].ToString()) ? oAllPremiums.Rows[i]["CLASS"] : BLANK).Append(SEPARATOR);
-        if (dBASKeys.ContainsKey(oSB.ToString()))
+        string sBasKey = GetBASKey(oAllPremiums.Rows[i]);
+        if (dBASKeys.ContainsKey(sBasKey))
           {
+          // original row
+          oDuplicates.ImportRow(dBASKeys[sBasKey]);
+          // duplicated row
           oDuplicates.ImportRow(oAllPremiums.Rows[i]);
           }
         else
           {
-          dBASKeys.Add(oSB.ToString(), oAllPremiums.Rows[i]);
+          dBASKeys.Add(sBasKey, oAllPremiums.Rows[i]);
           }
-
-        oSB.Clear();
         }
 
       return oDuplicates;
@@ -54,7 +39,7 @@ namespace OmniLifeValidationTool.Database
       string sDatabaseName = $"Premiums - {xsSupplierCode}";
       string sTableName = $"Premium_{xsSupplierCode}";
       string sConnectionString = @$"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Working\Omnium\Install\Premiums\{sDatabaseName}.accdb";
-      
+
       using (OleDbConnection oConnection = new(sConnectionString))
         {
         string sQuery = $"select * from {sTableName} where FORMULA = 'BAS'";
@@ -76,5 +61,27 @@ namespace OmniLifeValidationTool.Database
         }
 
       }
+
+    private string GetBASKey(DataRow xoRow)
+      {
+      StringBuilder oSB = new StringBuilder();
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["FORMULA_CODE"].ToString()) ? xoRow["FORMULA_CODE"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["PREMIUM_TYPE"].ToString()) ? xoRow["PREMIUM_TYPE"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["GENDER"].ToString()) ? xoRow["GENDER"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["SMOKER"].ToString()) ? xoRow["SMOKER"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["MIN_AGE"].ToString()) ? xoRow["MIN_AGE"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["BENEFIT_PERIOD"].ToString()) ? xoRow["BENEFIT_PERIOD"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["WAITING_PERIOD"].ToString()) ? xoRow["WAITING_PERIOD"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["FREQUENCY"].ToString()) ? xoRow["FREQUENCY"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["BUYBACK"].ToString()) ? xoRow["BUYBACK"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["DOUBLE"].ToString()) ? xoRow["DOUBLE"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["OWNANY"].ToString()) ? xoRow["OWNANY"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["ICB"].ToString()) ? xoRow["ICB"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["ABO"].ToString()) ? xoRow["ABO"] : BLANK).Append(SEPARATOR);
+      oSB.Append(!string.IsNullOrWhiteSpace(xoRow["CLASS"].ToString()) ? xoRow["CLASS"] : BLANK).Append(SEPARATOR);
+      return oSB.ToString();
+      }
+
+
     }
   }
