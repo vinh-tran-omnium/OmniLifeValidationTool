@@ -1,7 +1,7 @@
-﻿using OmniLifeValidationTool.Database;
-using OmniLifeValidationTool.Enums;
+﻿using OmniLifeValidationTool.Enums;
 using System.Data;
 using System.Text;
+using OmniLifeValidationTool.Databases;
 
 namespace OmniLifeValidationTool.Services
   {
@@ -10,6 +10,7 @@ namespace OmniLifeValidationTool.Services
     private readonly IPremiumRepository _premiumRepo;
     private const string BLANK = "_";
     private const string SEPARATOR = "/";
+    private const string COL_RECORD_NUM = "Row #";
     public PremiumService(IPremiumRepository premiumRepo)
       {
       _premiumRepo = premiumRepo;
@@ -17,11 +18,13 @@ namespace OmniLifeValidationTool.Services
 
     public DataTable GetMismatchKey(DataTable xoData)
       {
-      List<IGrouping<string?, DataRow>>? grouped = xoData
+      DataTable oLocalData = xoData.Copy();
+      oLocalData.Columns.Add(COL_RECORD_NUM);
+      List<IGrouping<string?, DataRow>>? grouped = oLocalData
         .AsEnumerable()
         .GroupBy(x => x.Field<string>(SupplierPremiumHeader.FORMULA_CODE.ToString()))
         .ToList();
-      DataTable oMismatched = xoData.Clone();
+      DataTable oMismatched = oLocalData.Clone();
 
       foreach (IGrouping<string?, DataRow>? oGroup in grouped)
         {
@@ -37,6 +40,7 @@ namespace OmniLifeValidationTool.Services
             string sKey = GetNullKey(oRow);
             if (sCurrentGroupKey != sKey)
               {
+              oRow[COL_RECORD_NUM] = oLocalData.Rows.IndexOf(oRow) + 1;
               oMismatched.ImportRow(oRow);
               }
             }
@@ -47,22 +51,32 @@ namespace OmniLifeValidationTool.Services
 
     public DataTable GetDuplicates(DataTable xoData)
       {
-      DataTable oDuplicates = xoData.Clone();
+      DataTable oLocalData = xoData.Copy();
+      if (!oLocalData.Columns.Contains(COL_RECORD_NUM))
+        {
+        oLocalData.Columns.Add(COL_RECORD_NUM);
+        }
+      
+      DataTable oDuplicates = oLocalData.Clone();
       Dictionary<string, DataRow> dBASKeys = new();
 
-      for (int i = 0; i < xoData.Rows.Count; i++)
+      for (int i = 0; i < oLocalData.Rows.Count; i++)
         {
-        string sBasKey = GetBASKey(xoData.Rows[i]);
+        string sBasKey = GetBASKey(oLocalData.Rows[i]);
         if (dBASKeys.ContainsKey(sBasKey))
           {
           // original row
-          oDuplicates.ImportRow(dBASKeys[sBasKey]);
+          DataRow oOriginalRow = dBASKeys[sBasKey];
+          oOriginalRow[COL_RECORD_NUM] = oLocalData.Rows.IndexOf(oOriginalRow) + 1;
+          oDuplicates.ImportRow(oOriginalRow);
           // duplicated row
-          oDuplicates.ImportRow(xoData.Rows[i]);
+          DataRow oDuplicateRow = oLocalData.Rows[i];
+          oDuplicateRow[COL_RECORD_NUM] = i + 1;
+          oDuplicates.ImportRow(oDuplicateRow);
           }
         else
           {
-          dBASKeys.Add(sBasKey, xoData.Rows[i]);
+          dBASKeys.Add(sBasKey, oLocalData.Rows[i]);
           }
         }
 
@@ -123,20 +137,20 @@ namespace OmniLifeValidationTool.Services
 
     private static string GetNullKey(DataRow xoRow)
       {
-      StringBuilder sbNullKey = new StringBuilder();
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.FORMULA_CODE.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.GENDER.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.SMOKER.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.MIN_AGE.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.BENEFIT_PERIOD.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.WAITING_PERIOD.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.FREQUENCY.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.BUYBACK.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.DOUBLE.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.OWNANY.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.ICB.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.ABO.ToString()].ToString()) ? "N" : "Y");
-      sbNullKey.Append(string.IsNullOrEmpty(xoRow[SupplierPremiumHeader.CLASS.ToString()].ToString()) ? "N" : "Y");
+      StringBuilder sbNullKey = new();
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.FORMULA_CODE.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.GENDER.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.SMOKER.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.MIN_AGE.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.BENEFIT_PERIOD.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.WAITING_PERIOD.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.FREQUENCY.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.BUYBACK.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.DOUBLE.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.OWNANY.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.ICB.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.ABO.ToString()].ToString()) ? "N" : "Y");
+      sbNullKey.Append(string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.CLASS.ToString()].ToString()) ? "N" : "Y");
       return sbNullKey.ToString();
       }
 

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OmniLifeValidationTool.Database;
+using OmniLifeValidationTool.Databases;
 using OmniLifeValidationTool.Services;
 
 namespace OmniLifeValidationTool

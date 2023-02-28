@@ -173,6 +173,7 @@
       this.duplicateRowDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.duplicateRowDgv.Location = new System.Drawing.Point(3, 42);
       this.duplicateRowDgv.Name = "duplicateRowDgv";
+      this.duplicateRowDgv.ReadOnly = true;
       this.duplicateRowDgv.RowTemplate.Height = 25;
       this.duplicateRowDgv.Size = new System.Drawing.Size(1131, 628);
       this.duplicateRowDgv.TabIndex = 1;
