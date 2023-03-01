@@ -90,7 +90,7 @@ namespace OmniLifeValidationTool.Services
 
     private string GetBASKey(DataRow xoRow)
       {
-      StringBuilder oSB = new StringBuilder();
+      StringBuilder oSB = new();
       oSB.Append(!string.IsNullOrWhiteSpace(xoRow[SupplierPremiumHeader.FORMULA_CODE.ToString()].ToString()) 
         ? xoRow[SupplierPremiumHeader.FORMULA_CODE.ToString()] : BLANK).Append(SEPARATOR);
 

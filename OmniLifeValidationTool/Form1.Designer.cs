@@ -187,7 +187,7 @@
       this.Controls.Add(this.panel1);
       this.MinimumSize = new System.Drawing.Size(1330, 780);
       this.Name = "Form1";
-      this.Text = "Form1";
+      this.Text = "OmniLife Validation Tool";
       this.tabControl2.ResumeLayout(false);
       this.supplierPremiumTp.ResumeLayout(false);
       this.splitContainer1.Panel1.ResumeLayout(false);
