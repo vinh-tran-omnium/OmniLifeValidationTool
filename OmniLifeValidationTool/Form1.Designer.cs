@@ -163,7 +163,7 @@
       this.Controls.Add(this.panel1);
       this.MinimumSize = new System.Drawing.Size(1330, 780);
       this.Name = "Form1";
-      this.Text = "OmniLife Validation Tool";
+      this.Text = "OmniLife BAS Validations";
       this.tabControl2.ResumeLayout(false);
       this.supplierPremiumTp.ResumeLayout(false);
       this.flowLayoutPanel1.ResumeLayout(false);
